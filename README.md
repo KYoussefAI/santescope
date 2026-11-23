@@ -28,6 +28,4 @@ L'analyse sera principalement descriptive.
 4. Réaliser des graphiques et des cartes.
 5. Interpréter les résultats et discuter des limites de l'étude.
 
-Les résultats de la première analyse restent à valider.
-
 Ce projet est destiné à l'apprentissage et ne constitue pas un outil clinique.
