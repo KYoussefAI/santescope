@@ -1,0 +1,26 @@
+name: Verifier la lecture des donnees AVC
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - scripts/01_exploration.R
+      - .github/workflows/exploration.yml
+  workflow_dispatch:
+
+jobs:
+  exploration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: r-lib/actions/setup-r@v2
+      - name: Telecharger les donnees officielles
+        run: |
+          mkdir -p data
+          curl --fail --location --retry 3 --max-time 120 \
+            "https://odisse.santepubliquefrance.fr/api/explore/v2.1/catalog/datasets/accident-vasculaire-cerebral-incidence-hospitaliere-dep/exports/csv?lang=fr&use_labels=false" \
+            --output data/avc_annual.csv
+          test -s data/avc_annual.csv
+      - name: Explorer le fichier avec R
+        run: Rscript scripts/01_exploration.R
