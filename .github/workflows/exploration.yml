@@ -11,17 +11,12 @@ on:
 jobs:
   exploration:
     runs-on: ubuntu-latest
+    container: rocker/r-ver:4.4.3
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-      - name: Verifier la presence de R
-        run: Rscript --version
       - name: Telecharger les donnees officielles
         run: |
-          mkdir -p data
-          curl --fail --location --retry 3 --max-time 120 \
-            "https://odisse.santepubliquefrance.fr/api/explore/v2.1/catalog/datasets/accident-vasculaire-cerebral-incidence-hospitaliere-dep/exports/csv?lang=fr&use_labels=false" \
-            --output data/avc_annual.csv
-          test -s data/avc_annual.csv
+          Rscript -e 'dir.create("data", showWarnings = FALSE); download.file("https://odisse.santepubliquefrance.fr/api/explore/v2.1/catalog/datasets/accident-vasculaire-cerebral-incidence-hospitaliere-dep/exports/csv?lang=fr&use_labels=false", "data/avc_annual.csv", mode = "wb", method = "libcurl")'
       - name: Explorer le fichier avec R
         run: Rscript scripts/01_exploration.R
