@@ -6,6 +6,7 @@ on:
     paths:
       - scripts/01_exploration.R
       - scripts/02_variables.R
+      - scripts/03_verification_taux.R
       - .github/workflows/exploration.yml
   workflow_dispatch:
 
@@ -23,3 +24,4 @@ jobs:
         run: |
           Rscript scripts/01_exploration.R
           Rscript scripts/02_variables.R
+          Rscript scripts/03_verification_taux.R
