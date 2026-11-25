@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - scripts/01_exploration.R
+      - scripts/02_variables.R
       - .github/workflows/exploration.yml
   workflow_dispatch:
 
@@ -19,4 +20,6 @@ jobs:
         run: |
           Rscript -e 'dir.create("data", showWarnings = FALSE); download.file("https://odisse.santepubliquefrance.fr/api/explore/v2.1/catalog/datasets/accident-vasculaire-cerebral-incidence-hospitaliere-dep/exports/csv?lang=fr&use_labels=false", "data/avc_annual.csv", mode = "wb", method = "libcurl")'
       - name: Explorer le fichier avec R
-        run: Rscript scripts/01_exploration.R
+        run: |
+          Rscript scripts/01_exploration.R
+          Rscript scripts/02_variables.R
