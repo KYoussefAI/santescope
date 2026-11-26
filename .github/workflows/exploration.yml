@@ -7,6 +7,7 @@ on:
       - scripts/01_exploration.R
       - scripts/02_variables.R
       - scripts/03_verification_taux.R
+      - scripts/04_preparation.R
       - .github/workflows/exploration.yml
   workflow_dispatch:
 
@@ -20,8 +21,9 @@ jobs:
       - name: Telecharger les donnees officielles
         run: |
           Rscript -e 'dir.create("data", showWarnings = FALSE); download.file("https://odisse.santepubliquefrance.fr/api/explore/v2.1/catalog/datasets/accident-vasculaire-cerebral-incidence-hospitaliere-dep/exports/csv?lang=fr&use_labels=false", "data/avc_annual.csv", mode = "wb", method = "libcurl")'
-      - name: Explorer le fichier avec R
+      - name: Explorer et preparer les donnees
         run: |
           Rscript scripts/01_exploration.R
           Rscript scripts/02_variables.R
           Rscript scripts/03_verification_taux.R
+          Rscript scripts/04_preparation.R
